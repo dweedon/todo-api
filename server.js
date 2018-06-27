@@ -16,11 +16,23 @@ server.route({
   method: 'GET',
   path: '/todos',
   handler: () => todoService.getTodos(),
+  config: {
+      cors: {
+          origin: ['*'],
+          additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+  },
 })
 server.route({
   method: 'POST',
   path: '/todos',
   handler: (req) => todoService.addTodo(req.payload.text),
+  config: {
+      cors: {
+          origin: ['*'],
+          additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+  },
 })
 server.route({
   method: 'DELETE',
@@ -28,12 +40,24 @@ server.route({
   handler: async (req, h) => {
     await todoService.deleteTodo(req.params.id)
     return h.response('No Content').code(204)
-  }
+  },
+  config: {
+      cors: {
+          origin: ['*'],
+          additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+  },
 })
 server.route({
   method: 'PUT',
   path: '/todos/{id}',
   handler: (req) => todoService.editTodo(req.params.id, req.payload),
+  config: {
+      cors: {
+          origin: ['*'],
+          additionalHeaders: ['cache-control', 'x-requested-with']
+      }
+  },
 })
 
 
